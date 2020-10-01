@@ -20,6 +20,7 @@
 		545C481C2525D6F1006BAC71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		545C481F2525D6F1006BAC71 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		545C48212525D6F1006BAC71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		545C48282525D7ED006BAC71 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +58,7 @@
 				545C481C2525D6F1006BAC71 /* Assets.xcassets */,
 				545C48212525D6F1006BAC71 /* Info.plist */,
 				545C481E2525D6F1006BAC71 /* Preview Content */,
+				545C48282525D7ED006BAC71 /* README.md */,
 			);
 			path = EggTimer;
 			sourceTree = "<group>";
