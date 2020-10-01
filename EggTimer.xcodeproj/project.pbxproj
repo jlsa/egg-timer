@@ -11,6 +11,8 @@
 		545C481B2525D6EE006BAC71 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545C481A2525D6EE006BAC71 /* ContentView.swift */; };
 		545C481D2525D6F1006BAC71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 545C481C2525D6F1006BAC71 /* Assets.xcassets */; };
 		545C48202525D6F1006BAC71 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 545C481F2525D6F1006BAC71 /* Preview Assets.xcassets */; };
+		545C482A2525E479006BAC71 /* alarm_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 545C48292525E479006BAC71 /* alarm_sound.mp3 */; };
+		545C482D2525FA7A006BAC71 /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545C482C2525FA7A006BAC71 /* ButtonStyles.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +23,8 @@
 		545C481F2525D6F1006BAC71 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		545C48212525D6F1006BAC71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		545C48282525D7ED006BAC71 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		545C48292525E479006BAC71 /* alarm_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alarm_sound.mp3; sourceTree = "<group>"; };
+		545C482C2525FA7A006BAC71 /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,10 +59,12 @@
 			children = (
 				545C48182525D6EE006BAC71 /* EggTimerApp.swift */,
 				545C481A2525D6EE006BAC71 /* ContentView.swift */,
+				545C48292525E479006BAC71 /* alarm_sound.mp3 */,
 				545C481C2525D6F1006BAC71 /* Assets.xcassets */,
 				545C48212525D6F1006BAC71 /* Info.plist */,
 				545C481E2525D6F1006BAC71 /* Preview Content */,
 				545C48282525D7ED006BAC71 /* README.md */,
+				545C482C2525FA7A006BAC71 /* ButtonStyles.swift */,
 			);
 			path = EggTimer;
 			sourceTree = "<group>";
@@ -129,6 +135,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				545C48202525D6F1006BAC71 /* Preview Assets.xcassets in Resources */,
+				545C482A2525E479006BAC71 /* alarm_sound.mp3 in Resources */,
 				545C481D2525D6F1006BAC71 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -141,6 +148,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				545C481B2525D6EE006BAC71 /* ContentView.swift in Sources */,
+				545C482D2525FA7A006BAC71 /* ButtonStyles.swift in Sources */,
 				545C48192525D6EE006BAC71 /* EggTimerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
