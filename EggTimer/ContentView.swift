@@ -23,16 +23,18 @@ struct ContentView: View {
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
-    @State var currentProgress: Double = 0.0
+    static let minute: Double = 1.0//60.0
     
-    let eggTimes: [EggBoilPreferences: Double] = [
-        .soft: 3.5, // 3.5 * 60 = 210 seconds
-        .medium: 5, // 5 * 60 = 300 seconds
-        .hard: 7 // 7 * 60 = 420 seconds
+    @State var eggTimes: [EggBoilPreferences: Double] = [
+        .soft: 3.5 * ContentView.minute, // 3.5 * 60 = 210 seconds
+        .medium: 5.0 * ContentView.minute, // 5 * 60 = 300 seconds
+        .hard: 7.0 * ContentView.minute // 7 * 60 = 420 seconds
     ]
     
-    var totalTime: Double = 0
-    var secondsPassed: Double = 0
+    @State var totalTime: Double = 0.0
+    @State var secondsPassed: Double = 0.0
+    
+    @State var titleText: String = "How do you like your eggs?"
     
     func playSound() {
         guard let url = Bundle.main.url(forResource: "alarm_sound", withExtension: "mp3") else { return }
@@ -43,92 +45,82 @@ struct ContentView: View {
             
             player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
             guard let player = player else { print("Player not working.."); return }
-            if !player.isPlaying {
-                player.play()
-            }
+            
+            player.play()
         } catch let error {
             print("This is bad error handling. Enjoy the error! Read localized description here: \n", error.localizedDescription)
         }
     }
     
-    func stopPlayingSound() {
-        guard let player = player else { print("Player not working.."); return }
-        if player.isPlaying {
-            player.stop()
-        }
+    func startBoiling(eggBoilPreference: EggBoilPreferences) {
+        boiledPreference = eggBoilPreference
+        totalTime = eggTimes[eggBoilPreference]!
+        secondsPassed = 0.0
+        timerStarted = true
+        titleText = "Boiling it the \(self.boiledPreference.rawValue) way!"
+    }
+    
+    func reset() {
+        timerStarted = false
+        titleText = "How do you like your eggs?"
+        secondsPassed = 0.0
+        totalTime = Double.greatestFiniteMagnitude
+        boiledPreference = EggBoilPreferences.medium
     }
     
     var body: some View {
         VStack {
-            Text("How do you like your eggs?")
+            Text(titleText)
                 .font(.system(size: 20, weight: .semibold, design: .rounded))
                 .frame(width: 300, height: 60)
             Spacer()
             
-            HStack {
-                Button(action: {
-                    print("Soft boiled please")
-                    self.boiledPreference = EggBoilPreferences.soft
-                }) {
-                    Text("Soft")
+            if !timerStarted {
+                HStack {
+                    Button(action: {
+                        startBoiling(eggBoilPreference: EggBoilPreferences.soft)
+                    }) {
+                        Text("Soft")
+                    }
+                    .buttonStyle(BlueButtonStyle())
+                    
+                    
+                    Button(action: {
+                        startBoiling(eggBoilPreference: EggBoilPreferences.medium)
+                    }) {
+                        Text("Medium")
+                    }
+                    .buttonStyle(BlueButtonStyle())
+                    
+                    Button(action: {
+                        startBoiling(eggBoilPreference: EggBoilPreferences.hard)
+                    }) {
+                        Text("Hard")
+                    }
+                    .buttonStyle(BlueButtonStyle())
                 }
-                .buttonStyle(BlueButtonStyle())
-                
-                
-                Button(action: {
-                    print("Medium boiled please")
-                    self.boiledPreference = EggBoilPreferences.medium
-                }) {
-                    Text("Medium")
-                }
-                .buttonStyle(BlueButtonStyle())
-                
-                Button(action: {
-                    print("Hard boiled please")
-                    self.boiledPreference = EggBoilPreferences.hard
-                }) {
-                    Text("Hard")
-                }
-                .buttonStyle(BlueButtonStyle())
-            }
-            Spacer()
-            
-            Text("Current preference:  \(self.boiledPreference.rawValue)")
-            
-            Spacer()
-            
-            if self.timerStarted {
-                ProgressView("Cooking...", value: currentProgress, total: 100)
+            } else {
+                ProgressView("Cooking...", value: secondsPassed, total: totalTime)
                     .accentColor(.green)
                     .onReceive(timer) { _ in
-                        if currentProgress == 100 {
-                            self.playSound()
+                        if totalTime > secondsPassed {
+                            secondsPassed = secondsPassed + 1
+                            if secondsPassed > totalTime { secondsPassed = totalTime }
+                        } else {
+                            playSound()
+                            titleText = "Done. You have a \(boiledPreference.rawValue) boiled egg!"
+                            timerStarted = false
                         }
-                        if currentProgress < 100 {
-                            currentProgress += 60.0 / 100 * 1
-                            print(currentProgress)
-                        }
-                    
                      }
                     .padding()
                 
+                Spacer()
+                
                 Button(action: {
-                    print("Stop timer")
-                    self.timerStarted.toggle()
-                    self.stopPlayingSound()
+                    reset()
                 }) {
-                    Text("Stop Timer")
-                }
-                .buttonStyle(RedButtonStyle())
-            } else {
-                Button(action: {
-                    print("Starting timer")
-                    self.timerStarted.toggle()
-                    self.currentProgress = 0
-                }) {
-                    Text("Start Timer")
-                }
-                .buttonStyle(GreenButtonStyle())
+                    Text("Cancel")
+                }.buttonStyle(RedButtonStyle())
             }
             
             Spacer()
